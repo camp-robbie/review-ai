@@ -2,6 +2,7 @@ package com.sparta.reviewai.service;
 
 import com.sparta.reviewai.dto.ReviewSummary;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.SimpleLoggerAdvisor;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
 import org.springframework.util.MimeTypeUtils;
@@ -96,6 +97,20 @@ public class ReviewSummaryService {
                             %s
                             """.formatted(reviews.size(), String.join("\n---\n", reviews)))
                         .media(MimeTypeUtils.IMAGE_PNG, photo))
+                .call()
+                .entity(ReviewSummary.class);
+    }
+
+    public ReviewSummary summarizeV3Logged(List<String> reviews) {
+        return chatClient.prompt()
+                .advisors(new SimpleLoggerAdvisor())
+                .system(SYSTEM_PROMPT)
+                .user("""
+                    아래는 같은 상품에 달린 고객 리뷰 %d건입니다.
+
+                    [리뷰]
+                    %s
+                    """.formatted(reviews.size(), String.join("\n---\n", reviews)))
                 .call()
                 .entity(ReviewSummary.class);
     }

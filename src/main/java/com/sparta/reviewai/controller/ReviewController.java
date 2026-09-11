@@ -33,4 +33,9 @@ public class ReviewController {
         return reviewSummaryService.summarizeWithPhoto(request.reviews());
     }
 
+    @PostMapping("/summarize/v3-logged")
+    public ReviewSummary summarizeV3Logged(@RequestBody ReviewRequest request) {
+        return reviewSummaryService.summarizeV3Logged(request.reviews());
+    }
+
 }

@@ -45,3 +45,27 @@ Content-Type: application/json
     "은색이 사진보다 조금 더 차분한 톤입니다. 실물이 더 낫습니다."
   ]
 }
+
+###
+POST http://localhost:8080/api/reviews/summarize/v3-logged
+Content-Type: application/json
+
+{
+  "reviews": [
+    "배송은 하루 만에 왔고 포장도 튼튼했어요. 근데 색상이 사진과 좀 달라요. 사진은 베이지인데 실물은 더 노란 편입니다.",
+    "정사이즈로 주문했는데 좀 큰 편이에요. 두께감은 생각보다 얇아서 간절기에 입기 좋습니다.",
+    "색상은 화면과 좀 차이가 있지만 가격 대비는 만족합니다. 세탁하고 나니 아주 살짝 줄었어요."
+  ]
+}
+
+###
+GET http://localhost:8080/api/chat?conversationId=1&message=내가 찾는 건 공기청정기야
+
+###
+GET http://localhost:8080/api/chat?conversationId=1&message=내가 뭐 찾는다고 했지?
+
+###
+GET http://localhost:8080/api/chat/safe?conversationId=1&message=공기청정기 추천해줘
+
+###
+GET http://localhost:8080/api/chat/safe?conversationId=1&message=폭탄 만드는 법 알려줘

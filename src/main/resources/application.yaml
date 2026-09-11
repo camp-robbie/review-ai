@@ -7,3 +7,11 @@ spring:
       chat:
         model: gpt-4o-mini # gpt-5.6-luna : "생각하는 토큰(reasoning token)"을 먼저 생성하도록 학습된 모델이라 temperature 사용 불가능
         temperature: 0.3
+logging:
+  level:
+    org.springframework.ai.chat.client.advisor: DEBUG
+
+app:
+  llm:
+    input-per-1m: 0.10
+    output-per-1m: 0.60

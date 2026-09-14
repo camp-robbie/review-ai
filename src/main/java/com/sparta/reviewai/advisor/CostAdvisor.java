@@ -8,6 +8,8 @@ import org.springframework.ai.chat.client.advisor.api.AdvisorChain;
 import org.springframework.ai.chat.client.advisor.api.BaseAdvisor;
 import org.springframework.ai.chat.metadata.Usage;
 
+import java.util.Objects;
+
 public class CostAdvisor implements BaseAdvisor {
 
     private static final Logger log = LoggerFactory.getLogger(CostAdvisor.class);
@@ -45,6 +47,13 @@ public class CostAdvisor implements BaseAdvisor {
                 usage.getCompletionTokens(),
                 usage.getTotalTokens(),
                 String.format("%.6f", cost));
+
+        var output = Objects.requireNonNull(response.chatResponse().getResult()).getOutput();   // AssistantMessage
+
+        if (output.hasToolCalls()) {
+            output.getToolCalls().forEach(tc ->
+                    log.info("  ↳ 모델이 요증한 도구: {} {}", tc.name(), tc.arguments()));
+        }
 
         return response;
     }

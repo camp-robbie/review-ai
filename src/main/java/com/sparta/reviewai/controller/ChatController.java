@@ -1,5 +1,6 @@
 package com.sparta.reviewai.controller;
 
+import com.sparta.reviewai.tool.ProductTools;
 import org.springframework.ai.chat.client.ChatClient;
 import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
 import org.springframework.ai.chat.client.advisor.SafeGuardAdvisor;
@@ -15,10 +16,12 @@ public class ChatController {
 
     private final ChatClient chatClient;
     private final ChatMemory chatMemory;
+    private final ProductTools productTools;
 
-    public ChatController(ChatClient chatClient, ChatMemory chatMemory) {
+    public ChatController(ChatClient chatClient, ChatMemory chatMemory, ProductTools productTools) {
         this.chatClient = chatClient;
         this.chatMemory = chatMemory;
+        this.productTools = productTools;
     }
 
     @GetMapping("/chat")
@@ -61,4 +64,32 @@ public class ChatController {
                 .call()
                 .content();
     }
+
+    @GetMapping("/ask/v1")
+    public String askV1(@RequestParam String message) {
+        return chatClient.prompt()
+                .tools(productTools)     // ← 도구를 넘깁니다
+                .user(message)
+                .call()
+                .content();
+    }
+
+    @GetMapping("/ask/v2")
+    public String askV2(@RequestParam String message) {
+        return chatClient.prompt()
+                .tools(productTools)
+                .user(message)
+                .call()
+                .content();
+    }
+
+    @GetMapping("/ask/v3")
+    public String askV3(@RequestParam String message) {
+        return chatClient.prompt()
+                .tools(productTools)
+                .user(message)
+                .call()
+                .content();
+    }
+
 }

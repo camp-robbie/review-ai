@@ -69,3 +69,15 @@ GET http://localhost:8080/api/chat/safe?conversationId=1&message=공기청정기
 
 ###
 GET http://localhost:8080/api/chat/safe?conversationId=1&message=폭탄 만드는 법 알려줘
+
+###
+GET http://localhost:8080/api/chat?conversationId=1&message=2번 상품 재고 있어?
+
+###
+GET http://localhost:8080/api/ask/v1?message=상품 몇 개 팔고 있어?
+
+###
+GET http://localhost:8080/api/ask/v2?message=99번 상품 재고 있어?
+
+###
+GET http://localhost:8080/api/ask/v3?message=3번 상품 재고 그리고 평균 별점과 리뷰 수 알려줘
